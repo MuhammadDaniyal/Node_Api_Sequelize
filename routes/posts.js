@@ -1,18 +1,19 @@
-const express = require('express')
-const postsControllers = require('../controllers/post.controllers')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
+const postsControllers = require("../controllers/post.controllers");
+const { checkAuth } = require("../middleware/check-auth");
 
 // POST
-router.route('/post').post(postsControllers.createPost)
+router.route("/post").post(checkAuth, postsControllers.createPost);
 
 // GET
-router.route('/posts').get(postsControllers.getAllPosts)
-router.route('/post/:id').get(postsControllers.getPost)
+router.route("/posts").get(postsControllers.getAllPosts);
+router.route("/post/:id").get(postsControllers.getPost);
 
 // PUT
-router.route('/post/:id').patch(postsControllers.updatePost)
+router.route("/post/:id").patch(checkAuth, postsControllers.updatePost);
 
 // DELETE
-router.route('/post/:id').delete(postsControllers.deletePost)
+router.route("/post/:id").delete(checkAuth, postsControllers.deletePost);
 
-module.exports = router
+module.exports = router;
